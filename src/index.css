@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Main Brand Colors (HSL versions of your hex colors) */
+    --text-color: 0 0% 23%;        /* #3b3b3b */
+    --bg-color: 0 0% 98%;          /* #fafafa */
+    --btn-primary-bg: 2 78% 57%;   /* #e6443e */
+    --btn-hover-bg: 28 100% 55%;   /* #ff861a */
+    --main-text: 2 78% 57%;        /* #e6443e */
+
+    /* Core UI Colors - Mapped to brand colors */
+    --background: var(--bg-color);
+    --foreground: var(--text-color);
+
+    /* Primary Actions - Using brand red */
+    --primary: var(--btn-primary-bg);
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary & Accent - Using brand orange */
+    --secondary: var(--btn-hover-bg);
+    --secondary-foreground: 0 0% 100%;
+    --accent: var(--main-text);
+    --accent-foreground: 0 0% 100%;
+
+    /* Component Colors */
+    --card: var(--bg-color);
+    --card-foreground: var(--text-color);
+    --popover: var(--bg-color);
+    --popover-foreground: var(--text-color);
+    
+    /* UI Elements */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: var(--btn-primary-bg);
+    --radius: 0.75rem;
+
+    /* Status Colors */
+    --muted: 0 0% 96%;
+    --muted-foreground: var(--text-color);
+    --destructive: var(--btn-primary-bg);
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Progress Indicator */
+    --progress: var(--btn-primary-bg);
+    --progress-bg: var(--bg-color);
+
+    /* Sidebar Theme */
+    --sidebar-background: var(--bg-color);
+    --sidebar-foreground: var(--text-color);
+    --sidebar-primary: var(--btn-primary-bg);
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: var(--btn-hover-bg);
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: var(--border);
+    --sidebar-ring: var(--btn-primary-bg);
+  }
+
+  .dark {
+    /* Core UI Colors - Dark Theme */
+    --text-color: 0 0% 90%;        /* Light text for dark mode */
+    --bg-color: 0 0% 10%;          /* Dark background */
+    
+    /* Maintain brand colors but adjust for dark mode */
+    --btn-primary-bg: 2 78% 57%;   /* Same as light mode */
+    --btn-hover-bg: 28 100% 55%;   /* Same as light mode */
+    --main-text: 2 78% 57%;        /* Same as light mode */
+
+    /* Map dark theme colors */
+    --background: var(--bg-color);
+    --foreground: var(--text-color);
+    
+    --card: 0 0% 15%;
+    --card-foreground: var(--text-color);
+    
+    --popover: 0 0% 15%;
+    --popover-foreground: var(--text-color);
+    
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 65%;
+    
+    /* Keep interactive elements consistent with brand */
+    --primary: var(--btn-primary-bg);
+    --secondary: var(--btn-hover-bg);
+    --accent: var(--main-text);
+    --ring: var(--btn-primary-bg);
+    
+    /* Sidebar Dark Theme */
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: var(--text-color);
+    --sidebar-primary: var(--btn-primary-bg);
+    --sidebar-accent: var(--btn-hover-bg);
+    --sidebar-border: var(--border);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+.card {
+  @apply bg-card text-card-foreground rounded-lg border border-border;
+}
+
+
