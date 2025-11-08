@@ -28,40 +28,21 @@ const Login = () => {
     try {
       setError("");
       setLoading(true);
-      await login(email, password);
+      // This login function now comes from our fixed AuthContext
+      await login(email, password); 
+      
       toast({
         title: "Welcome back!",
         description: "Successfully logged in to ClaroDELE",
       });
-      navigate("/");
+      navigate("/"); // Redirect to home or practice page
     } catch (err: any) {
-      setError(err.message || "Failed to log in");
+      const errorMsg = err?.response?.data?.detail || err.message || "Failed to log in";
+      setError(errorMsg);
       toast({
         variant: "destructive",
         title: "Login failed",
-        description: err.message || "Please check your credentials and try again",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    try {
-      setError("");
-      setLoading(true);
-      await loginWithGoogle();
-      toast({
-        title: "Welcome!",
-        description: "Successfully logged in with Google",
-      });
-      navigate("/practice");
-    } catch (err: any) {
-      setError(err.message || "Failed to log in with Google");
-      toast({
-        variant: "destructive",
-        title: "Login failed",
-        description: err.message || "Please try again",
+        description: errorMsg,
       });
     } finally {
       setLoading(false);

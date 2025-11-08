@@ -56,58 +56,23 @@ const Signup = () => {
     setError("");
 
     try {
-      // First, create account in our backend
-      await authAPI.signup({
-        email: formData.email,
-        password: formData.password,
-        full_name: formData.name,
-        user_type: "free"  // default to free tier
-      });
-
-      // Then sign in with Firebase (keep your existing Firebase auth for now)
-      await signup(formData.email, formData.password);
+      // This signup function now comes from our fixed AuthContext
+      await signup(formData.email, formData.password, formData.name);
       
       toast({
         title: "Account created successfully!",
-        description: "Welcome to ClaroDELE. Redirecting to dashboard...",
-        duration: 5000,
+        description: "Welcome to ClaroDELE. Redirecting...",
       });
       
-      navigate("/");
-    } catch (error) {
+      navigate("/"); // Redirect to home or practice page
+    } catch (error: any) {
       console.error("Signup error:", error);
-      setError(error?.response?.data?.detail || "Failed to create account");
+      const errorMsg = error?.response?.data?.detail || error.message || "Failed to create account";
+      setError(errorMsg);
       toast({
         variant: "destructive",
         title: "Error creating account",
-        description: error?.response?.data?.detail || "Please try again later",
-        duration: 5000,
-      });
-    } finally {
-      setLoading(false);
-    }
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-
-    try {
-      setError("");
-      setLoading(true);
-      await signup(formData.email, formData.password, formData.name);
-      toast({
-        title: "Account created!",
-        description: "Welcome to ClaroDELE. Let's start your journey!",
-      });
-      navigate("/");
-    } catch (err: any) {
-      const errorMessage = err.message || "Failed to create account";
-      setError(errorMessage);
-      toast({
-        variant: "destructive",
-        title: "Signup failed",
-        description: errorMessage,
+        description: errorMsg,
       });
     } finally {
       setLoading(false);
